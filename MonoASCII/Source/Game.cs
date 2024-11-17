@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Graphics;
 using MonoGame.Extended;
-using System;
 using MonoGame.Extended.ViewportAdapters;
+using System;
 
 namespace MonoASCII
 {
