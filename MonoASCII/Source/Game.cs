@@ -1,71 +1,51 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoASCII.Source.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
-using System;
 
 namespace MonoASCII
 {
     public class Game : Microsoft.Xna.Framework.Game
     {
-        public const int TileSize = 10;
-        public const int ViewportWidth = 32;
-        public const int ViewportHeight = 32;
-
+        public const int GridHeight = 16;
+        public const int GridWidth = 16;
         private OrthographicCamera _camera;
-        private int[,] _tile_map;
-        private Random _random;
 
         private GraphicsDeviceManager _graphics;
+        private ASCIIGrid _grid;
         private SpriteBatch _spriteBatch;
+
+        private ASCIITileset _tileset;
+        private Texture2D _tilesetTexture;
 
         public Game()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-            _random = new Random();
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+            _grid = new ASCIIGrid(GridWidth, GridHeight, _tileset, _spriteBatch);
             SetupViewport();
-            GenerateMap();
         }
 
         private void SetupViewport()
         {
-            var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, ViewportWidth, ViewportHeight);
+            var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, GridWidth, GridHeight);
             _camera = new OrthographicCamera(viewportAdapter);
             viewportAdapter.Reset();
             Window.AllowUserResizing = true;
         }
 
-        private void GenerateMap()
-        {
-            _tile_map = new int[ViewportWidth, ViewportHeight];
-            for (int i = 0; i < ViewportWidth; i++)
-            {
-                for (int j = 0; j < ViewportHeight; j++)
-                {
-                    if (_random.NextDouble() < 0.5)
-                    {
-                        _tile_map[i, j] = 0;
-                    }
-                    else
-                    {
-                        _tile_map[i, j] = 1;
-                    }
-                }
-            }
-        }
-
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _tileset = new ASCIITileset(Content.Load<Texture2D>("cp437_8x8"), 8, 8);
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,25 +59,16 @@ namespace MonoASCII
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+
+            for (int i = 0; i < 255; i++)
+            {
+                _grid.DrawGlyph(i, i % GridWidth, i / GridHeight, Color.White, Color.LightGray);
+            }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
-
-            _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-            for (int i = 0; i < ViewportWidth; i++)
-            {
-                for (int j = 0; j < ViewportHeight; j++)
-                {
-                    if (_tile_map[i, j] == 0)
-                    {
-                        _spriteBatch.DrawRectangle(new Rectangle(i, j, 1, 1), Color.White);
-                    }
-                    else if (_tile_map[i, j] == 1)
-                    {
-                        _spriteBatch.DrawRectangle(new Rectangle(i, j, 1, 1), Color.Black);
-                    }
-                }
-            }
-            _spriteBatch.End();
         }
     }
 }
