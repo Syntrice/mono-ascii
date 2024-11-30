@@ -12,7 +12,6 @@ namespace MonoASCII.Tests
         {
             try
             {
-
                 Game game = new Game();
                 game.RunOneFrame();
             }
