@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
+using System;
 
 namespace MonoASCII.Source.Graphics
 {
@@ -7,6 +8,8 @@ namespace MonoASCII.Source.Graphics
     {
         private Texture2DAtlas _atlas;
         private Texture2D _texture;
+
+        public int GlyphCount {  get { return _atlas.RegionCount; } }
         public int GlyphHeight { get; }
         public int GlyphWidth { get; }
 
@@ -25,6 +28,11 @@ namespace MonoASCII.Source.Graphics
 
         public Texture2DRegion GetGlyph(int c)
         {
+            if (c < 0  || c >= GlyphCount)
+            {
+                throw new ArgumentOutOfRangeException($"Invalid char code {c}: must be between 0 and {GlyphCount}");
+            }
+
             return _atlas[c];
         }
     }
