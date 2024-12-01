@@ -5,33 +5,69 @@ using MonoGame.Extended.Graphics;
 
 namespace MonoASCII.Source.Graphics
 {
-    internal class ASCIIGrid
+    public class ASCIIGrid
     {
         private SpriteBatch _batch;
-        public int Height { get; }
-        public ASCIITileset Tileset { get; }
-        public int Width { get; }
 
-        public ASCIIGrid(int width, int height, ASCIITileset tileset, SpriteBatch batch)
+        private Color[,] backgroundColors;
+        private Color[,] foregroundColors;
+        private int[,] glyphs;
+
+        public Color DefaultBackground { get; }
+        public Color DefaultForeground { get; }
+
+        public int Width { get; }
+        public int Height { get; }
+
+        public ASCIITileset Tileset { get; }
+        
+        public ASCIIGrid(ASCIITileset tileset, int width, int height, Color defaultBackground, Color defaultForeground)
         {
             Width = width;
             Height = height;
             Tileset = tileset;
-            _batch = batch;
+            DefaultBackground = defaultBackground;
+            DefaultForeground = defaultForeground;
+
+            backgroundColors = new Color[Width, Height];
+            foregroundColors = new Color[Width, Height];
+            glyphs = new int[Width, Height];
+
         }
 
-        public void DrawGlyph(char glyph, int x, int y, Color foreground, Color background)
-        {
-            _batch.FillRectangle(new Rectangle(x, y, 1, 1), background);
+        public ASCIIGrid(ASCIITileset tileset, int width, int height)
+            : this(tileset, width, height, Color.Black, Color.White) { }
 
-            _batch.Draw(Tileset.GetGlyph(glyph), new Rectangle(x, y, 1, 1), foreground);
+        public void ClearGrid()
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    backgroundColors[i,j] = DefaultBackground;
+                    foregroundColors[i,j] = DefaultForeground;
+                    glyphs[i, j] = 0;
+                }
+            }
         }
 
-        public void DrawGlyph(int glyph, int x, int y, Color foreground, Color background)
+        public void SetGlyph(int x, int y, char glyph, Color background, Color foreground)
         {
-            _batch.FillRectangle(new Rectangle(x, y, 1, 1), background);
+                backgroundColors[x, y] = background;
+                foregroundColors[x,y] = foreground;
+                glyphs[x, y] = glyph;
+        }
 
-            _batch.Draw(Tileset.GetGlyph(glyph), new Rectangle(x, y, 1, 1), foreground);
+        public void Render(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    spriteBatch.FillRectangle(new Rectangle(i,j,1,1), backgroundColors[i,j]);
+                    spriteBatch.Draw(Tileset.GetGlyph(glyphs[i,j]), new Rectangle(i,j,1,1), foregroundColors[i,j]);
+                }
+            }
         }
     }
 }

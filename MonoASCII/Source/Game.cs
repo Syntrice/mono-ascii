@@ -11,6 +11,7 @@ namespace MonoASCII
     {
         public const int GridHeight = 16;
         public const int GridWidth = 16;
+
         private OrthographicCamera _camera;
 
         private GraphicsDeviceManager _graphics;
@@ -30,8 +31,12 @@ namespace MonoASCII
         protected override void Initialize()
         {
             base.Initialize();
-            _grid = new ASCIIGrid(GridWidth, GridHeight, _tileset, _spriteBatch);
+            _grid = new ASCIIGrid(_tileset, GridWidth, GridHeight);
             SetupViewport();
+            _grid.ClearGrid();
+            _grid.SetGlyph(8, 8, '@', Color.Green, Color.White);
+            _grid.SetGlyph(4, 3, (char) 1, Color.Green, Color.White);
+            _grid.SetGlyph(13, 15, '#', Color.Gray, Color.LightGray);
         }
 
         private void SetupViewport()
@@ -58,17 +63,11 @@ namespace MonoASCII
 
         protected override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-
-            for (int i = 0; i < 255; i++)
-            {
-                _grid.DrawGlyph(i, i % GridWidth, i / GridHeight, Color.White, Color.LightGray);
-            }
-
+            _grid.Render(_spriteBatch);
             _spriteBatch.End();
-
-            base.Draw(gameTime);
         }
     }
 }
