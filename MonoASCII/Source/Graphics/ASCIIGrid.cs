@@ -7,36 +7,38 @@ namespace MonoASCII.Source.Graphics
 {
     public class ASCIIGrid
     {
-        private SpriteBatch _batch;
 
+        // TODO: Encapsulate as struct
         private Color[,] backgroundColors;
         private Color[,] foregroundColors;
-        private int[,] glyphs;
+        private char[,] glyphs;
+
 
         public Color DefaultBackground { get; }
         public Color DefaultForeground { get; }
-
         public int Width { get; }
         public int Height { get; }
-
+        public int TileWidth { get; }
+        public int TileHeight { get; }
         public ASCIITileset Tileset { get; }
         
-        public ASCIIGrid(ASCIITileset tileset, int width, int height, Color defaultBackground, Color defaultForeground)
+        public ASCIIGrid(ASCIITileset tileset, int width, int height, int tileWidth, int tileHeight, Color defaultBackground, Color defaultForeground)
         {
             Width = width;
             Height = height;
             Tileset = tileset;
             DefaultBackground = defaultBackground;
             DefaultForeground = defaultForeground;
+            TileWidth = tileWidth;
+            TileHeight = tileHeight;
 
             backgroundColors = new Color[Width, Height];
             foregroundColors = new Color[Width, Height];
-            glyphs = new int[Width, Height];
-
+            glyphs = new char[Width, Height];
         }
 
-        public ASCIIGrid(ASCIITileset tileset, int width, int height)
-            : this(tileset, width, height, Color.Black, Color.White) { }
+        public ASCIIGrid(ASCIITileset tileset, int width, int height, int tileWidth, int tileHeight)
+            : this(tileset, width, height, tileWidth, tileHeight, Color.Black, Color.White) { }
 
         public void ClearGrid()
         {
@@ -46,7 +48,7 @@ namespace MonoASCII.Source.Graphics
                 {
                     backgroundColors[i,j] = DefaultBackground;
                     foregroundColors[i,j] = DefaultForeground;
-                    glyphs[i, j] = 0;
+                    glyphs[i, j] = (char) 0;
                 }
             }
         }
@@ -64,8 +66,8 @@ namespace MonoASCII.Source.Graphics
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    spriteBatch.FillRectangle(new Rectangle(i,j,1,1), backgroundColors[i,j]);
-                    spriteBatch.Draw(Tileset.GetGlyph(glyphs[i,j]), new Rectangle(i,j,1,1), foregroundColors[i,j]);
+                    spriteBatch.FillRectangle(new Rectangle(i,j,TileWidth,TileHeight), backgroundColors[i,j]);
+                    spriteBatch.Draw(Tileset.GetGlyph(glyphs[i,j]), new Rectangle(i,j, TileWidth, TileWidth), foregroundColors[i,j]);
                 }
             }
         }
