@@ -31,7 +31,7 @@ namespace MonoASCII
         protected override void Initialize()
         {
             base.Initialize();
-            _grid = new ASCIIGrid(_tileset, GridWidth, GridHeight);
+            _grid = new ASCIIGrid(_tileset, GridWidth, GridHeight, 1, 1);
             SetupViewport();
             _grid.ClearGrid();
             _grid.SetGlyph(8, 8, '@', Color.Green, Color.White);
