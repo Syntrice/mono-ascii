@@ -34,9 +34,9 @@ namespace MonoASCII
             _grid = new ASCIIGrid(_tileset, GridWidth, GridHeight, 1, 1);
             SetupViewport();
             _grid.ClearGrid();
-            _grid.SetGlyph(8, 8, '@', Color.Green, Color.White);
-            _grid.SetGlyph(4, 3, (char) 1, Color.Green, Color.White);
-            _grid.SetGlyph(13, 15, '#', Color.Gray, Color.LightGray);
+            _grid.SetCell(8, 8, '@', Color.Green, Color.White);
+            _grid.SetCell(4, 3, (char) 1, Color.Green, Color.White);
+            _grid.SetCell(13, 15, '#', Color.Gray, Color.LightGray);
         }
 
         private void SetupViewport()
