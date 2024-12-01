@@ -9,7 +9,7 @@ namespace MonoASCII.Source.Graphics
         private Texture2DAtlas _atlas;
         private Texture2D _texture;
 
-        public int GlyphCount {  get { return _atlas.RegionCount; } }
+        public int GlyphCount { get { return _atlas.RegionCount; } }
         public int GlyphHeight { get; }
         public int GlyphWidth { get; }
 
@@ -30,7 +30,7 @@ namespace MonoASCII.Source.Graphics
         {
             if (c < 0  || c >= GlyphCount)
             {
-                throw new ArgumentOutOfRangeException($"Invalid char code {c}: must be between 0 and {GlyphCount}");
+                throw new ArgumentOutOfRangeException(nameof(c), $"Invalid char code {c}: must be between 0 and {GlyphCount - 1}");
             }
 
             return _atlas[c];
