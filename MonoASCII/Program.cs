@@ -1,2 +1,2 @@
-﻿using var game = new MonoASCII.Game();
+﻿using var game = new MonoASCII.Core.MonoASCIIGame();
 game.Run();
