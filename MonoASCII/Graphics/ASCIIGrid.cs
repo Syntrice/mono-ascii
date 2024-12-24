@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 
-namespace MonoASCII.Source.Graphics
+namespace MonoASCII.Graphics
 {
     public class ASCIIGrid
     {

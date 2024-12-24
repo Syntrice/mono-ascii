@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoASCII.Source.Graphics
+namespace MonoASCII.Graphics
 {
     /// <summary>
     /// Represents a single cell in an ASCII grid, with a foreground and background color and a glyph character.
