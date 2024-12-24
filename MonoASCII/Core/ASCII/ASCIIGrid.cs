@@ -1,29 +1,42 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoASCII.Core.Graphics
+namespace MonoASCII.Core.ASCII
 {
     public class ASCIIGrid
     {
+        /// <summary>
+        /// The cell used to represent out of bounds cells.
+        /// </summary>
+        public static ASCIICell BoundsCell = new ASCIICell((char)178, Color.Red, Color.Black);
+
         private ASCIICell[,] _cells;
-        public Color DefaultBackground { get; }
-        public Color DefaultForeground { get; }
+        public Color DefaultBackground { get; set; }
+        public Color DefaultForeground { get; set; }
         public int Width { get; }
         public int Height { get; }
 
         /// <summary>
-        /// The width of each cell in the grid, in world units. This would normally be the width of the tileset's glyphs in pixels,
-        /// or a custom value if using a transformMatrix to scale the grid to world units.
+        /// The width of each cell in world units.
         /// </summary>
         public int CellWidth { get; }
 
         /// <summary>
-        /// The height of each cell in the grid, in world units. This would normally be the width of the tileset's glyphs in pixels,
-        /// or a custom value if using a transformMatrix to scale the grid to world units.
+        /// The height of each cell in world units.
         /// </summary>
         public int CellHeight { get; }
 
         public ASCIIGrid(int width, int height, int tileWidth, int tileHeight, Color defaultBackground, Color defaultForeground)
         {
+            if (width <= 0 || height <= 0)
+            {
+                throw new System.ArgumentException("Width and height must be greater than 0.");
+            }
+
+            if (tileWidth <= 0 || tileHeight <= 0)
+            {
+                throw new System.ArgumentException("Tile width and height must be greater than 0.");
+            }
+
             Width = width;
             Height = height;
             DefaultBackground = defaultBackground;
@@ -32,13 +45,11 @@ namespace MonoASCII.Core.Graphics
             CellHeight = tileHeight;
 
             _cells = new ASCIICell[Width, Height];
+            ClearGrid();
         }
 
-        public ASCIIGrid(int width, int height, int tileWidth, int tileHeight)
-            : this(width, height, tileWidth, tileHeight, Color.Black, Color.White) { }
-
         /// <summary>
-        /// Clear the grid, initializing all cells to the default background and foreground colors, and the null glyph.
+        /// Clears the grid using the default background and foreground colors.
         /// </summary>
         public void ClearGrid()
         {
@@ -51,19 +62,31 @@ namespace MonoASCII.Core.Graphics
             }
         }
 
-        /// <summary>
-        /// Set the cell at the given x and y coordinates.
-        /// </summary>
-        /// <param name="x">X coordinate of cell to set</param>
-        /// <param name="y">Y coordinate of cell to set</param>
-        /// <param name="glyph">The character to use for the glyph</param>
-        /// <param name="background">The background color</param>
-        /// <param name="foreground">The foreground (i.e. glyph) color</param>
         public void SetCell(int x, int y, char glyph, Color background, Color foreground)
         {
             _cells[x, y].Background = background;
             _cells[x, y].Foreground = foreground;
             _cells[x, y].Glyph = glyph;
+        }
+
+        public void SetCell(int x, int y, char glyph)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+            {
+                return;
+            }
+
+            SetCell(x, y, glyph, DefaultBackground, DefaultForeground);
+        }
+
+        public ASCIICell GetCell(int x, int y)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+            {
+                return BoundsCell;
+            }
+
+            return _cells[x, y];
         }
     }
 }
