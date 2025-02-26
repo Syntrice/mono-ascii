@@ -1,30 +1,34 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoASCII.Core
+namespace MonoASCII.Engine
 {
-    public class MonoASCIIGame : Game
+    public class GameEngine : Game
     {
         private GraphicsDeviceManager _graphics = null!;
         private SpriteBatch _spriteBatch = null!;
+        private readonly ILogger<GameEngine> _logger;
 
-        public MonoASCIIGame()
+        public GameEngine(ILogger<GameEngine> logger)
         {
+            _logger = logger;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-
+        
         protected override void Initialize()
         {
+            _logger.LogInformation("Initializing...");
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            _logger.LogInformation("Loading content...");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
