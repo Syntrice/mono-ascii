@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MonoASCII.Core.ASCII;
-using System.Security.Cryptography.X509Certificates;
+using Shouldly;
 
 namespace MonoASCII.Tests.Core.ASCII
 {
@@ -18,7 +17,6 @@ namespace MonoASCII.Tests.Core.ASCII
             // Act
             Action act = () => new ASCIIGrid(width, height, 1, 1, Color.White, Color.Black);
             // Assert
-            act.Should().Throw<ArgumentException>();
         }
 
         [TestCase(0, 0)]
@@ -30,7 +28,7 @@ namespace MonoASCII.Tests.Core.ASCII
             // Act
             Action act = () => new ASCIIGrid(1, 1, width, height, Color.White, Color.Black);
             // Assert
-            act.Should().Throw<ArgumentException>();
+            act.ShouldThrow(typeof(ArgumentException));
         }
 
         [TestCase( 255, 0, 0, 0, 0, 255 )]
@@ -55,9 +53,9 @@ namespace MonoASCII.Tests.Core.ASCII
                 for (int col = 0; col < grid.Width; col++)
                 {
                     var cell = grid.GetCell(col, row);
-                    cell.Glyph.Should().Be((char) 0);
-                    cell.Foreground.Should().BeEquivalentTo(foreground);
-                    cell.Background.Should().BeEquivalentTo(background);
+                    cell.Glyph.ShouldBe((char) 0);
+                    cell.Foreground.ShouldBeEquivalentTo(foreground);
+                    cell.Background.ShouldBeEquivalentTo(background);
                 }
             }
         }
@@ -76,7 +74,7 @@ namespace MonoASCII.Tests.Core.ASCII
             grid.SetCell(1, 1, glyph, Color.White, Color.Black);
 
             // Assert
-            grid.GetCell(1, 1).Glyph.Should().Be(glyph);
+            grid.GetCell(1, 1).Glyph.ShouldBe(glyph);
         }
 
         [TestCase(255, 0, 0, 0, 255, 0)]
@@ -92,8 +90,8 @@ namespace MonoASCII.Tests.Core.ASCII
             grid.SetCell(1, 1, 'a', background, foreground);
 
             // Assert
-            grid.GetCell(1, 1).Foreground.Should().BeEquivalentTo(foreground);
-            grid.GetCell(1, 1).Background.Should().BeEquivalentTo(background);
+            grid.GetCell(1, 1).Foreground.ShouldBeEquivalentTo(foreground);
+            grid.GetCell(1, 1).Background.ShouldBeEquivalentTo(background);
         }
 
 
@@ -114,8 +112,8 @@ namespace MonoASCII.Tests.Core.ASCII
             grid.SetCell(1, 1, 'a');
 
             // Assert
-            grid.GetCell(1, 1).Foreground.Should().BeEquivalentTo(grid.DefaultForeground);
-            grid.GetCell(1, 1).Background.Should().BeEquivalentTo(grid.DefaultBackground);
+            grid.GetCell(1, 1).Foreground.ShouldBeEquivalentTo(grid.DefaultForeground);
+            grid.GetCell(1, 1).Background.ShouldBeEquivalentTo(grid.DefaultBackground);
         }
 
         [Test]
@@ -127,8 +125,8 @@ namespace MonoASCII.Tests.Core.ASCII
             Action act1 = () => grid.SetCell(grid.Width + 1, grid.Height + 1, 'a');
             Action act2 = () => grid.SetCell(-1, -1, 'a');
             // Assert
-            act1.Should().NotThrow();
-            act2.Should().NotThrow();
+            act1.ShouldNotThrow();
+            act2.ShouldNotThrow();
         }
 
         [Test]
@@ -140,8 +138,8 @@ namespace MonoASCII.Tests.Core.ASCII
             var cell1 = grid.GetCell(-1, -1);
             var cell2 = grid.GetCell(grid.Width + 1, grid.Height + 1);
             // Assert
-            cell1.Should().BeEquivalentTo(ASCIIGrid.BoundsCell);
-            cell2.Should().BeEquivalentTo(ASCIIGrid.BoundsCell);
+            cell1.ShouldBeEquivalentTo(ASCIIGrid.BoundsCell);
+            cell2.ShouldBeEquivalentTo(ASCIIGrid.BoundsCell);
         }
 
 
