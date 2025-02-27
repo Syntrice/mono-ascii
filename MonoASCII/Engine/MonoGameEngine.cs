@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoASCII.Engine
 {
-    public class GameEngine : Game
+    public class MonoGameEngine : Game
     {
         private GraphicsDeviceManager _graphics = null!;
         private SpriteBatch _spriteBatch = null!;
-        private readonly ILogger<GameEngine> _logger;
+        private readonly ILogger<MonoGameEngine> _logger;
 
-        public GameEngine(ILogger<GameEngine> logger)
+        public MonoGameEngine(ILogger<MonoGameEngine> logger)
         {
             _logger = logger;
             _graphics = new GraphicsDeviceManager(this);
