@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoASCII.Graphics
+namespace MonoASCII.Core.ASCII
 {
-    /// <summary>
-    /// Represents a single cell in an ASCII grid, with a foreground and background color and a glyph character.
-    /// </summary>
     public struct ASCIICell
     {
         public Color Foreground { get; set; }

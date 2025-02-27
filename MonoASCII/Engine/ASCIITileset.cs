@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Graphics;
 using System;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Graphics;
 
-namespace MonoASCII.Graphics
-{
-    /// <summary>
+namespace MonoASCII.Engine;
+
+/// <summary>
     /// Represents a tileset of ASCII glyphs. Internally, it uses MonoGame.Extended's Texture2DAtlas to split a texture into
     /// a tileset, where each tile is a glyph from top-left to bottom-right corresponds to an ascii character code. It has
     /// methods for getting the corresponding Texture2DRegion for a given character, looking this up in the atlas.
@@ -65,4 +65,3 @@ namespace MonoASCII.Graphics
             return _atlas[c];
         }
     }
-}
