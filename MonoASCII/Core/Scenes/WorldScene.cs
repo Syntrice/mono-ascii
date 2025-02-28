@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using MonoASCII.Core.ASCII;
+using MonoASCII.Framework.ASCII;
 
 namespace MonoASCII.Core.Scenes;
 

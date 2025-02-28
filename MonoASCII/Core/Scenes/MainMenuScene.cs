@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using MonoASCII.Core.ASCII;
-using MonoASCII.Core.Utilities;
+using MonoASCII.Framework.ASCII;
 
 namespace MonoASCII.Core.Scenes;
 
@@ -27,6 +26,6 @@ public class MainMenuScene : Scene
 
     public override void Render()
     {
-        RenderUtilities.RenderASCIIGrid(_grid, _cellRenderer);
+        _cellRenderer.RenderGrid(_grid);
     }
 }

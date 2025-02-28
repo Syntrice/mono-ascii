@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoASCII.Core.ASCII;
+using MonoASCII.Framework.ASCII;
 using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 
