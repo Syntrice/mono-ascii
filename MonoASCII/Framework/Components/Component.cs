@@ -5,20 +5,41 @@ using Microsoft.Xna.Framework;
 
 namespace MonoASCII.Framework.Components;
 
-public class Component
+public abstract class Component
 {
-    private readonly Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
+    private readonly Dictionary<(string, Type), Component> _components = new Dictionary<(string, Type), Component>();
     public Component[] Components => _components.Values.ToArray();
 
-    public void AddComponent(Component component)
+    public void AddComponent(string name, Component component)
     {
-        _components.Add(component.GetType(), component);
+        _components.Add((name, component.GetType()), component);
     }
 
-    public T? GetComponent<T>() where T : Component
+    public T? GetComponent<T>(string name) where T : Component
     {
-        return _components.TryGetValue(typeof(T), out var component) ? component as T : null;
+        try
+        {
+            return _components.TryGetValue((name, typeof(T)), out var component) ? component as T : null;
+        }
+        catch (InvalidCastException e)
+        {
+            return null;
+        }
     }
 
-    public virtual void Update(GameTime gameTime) {}
+    public virtual void Update(GameTime gameTime)
+    {
+        foreach (var component in _components.Values)
+        {
+            component.Update(gameTime);
+        }
+    }
+
+    public virtual void Render(GameTime gameTime, IRenderHandler renderHandler)
+    {
+        foreach (var component in _components.Values)
+        {
+            component.Render(gameTime, renderHandler);
+        }
+    }
 }
