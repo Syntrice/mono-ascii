@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoASCII.Core.Scenes;
 using MonoASCII.Engine.Renderers;
+using MonoASCII.Framework;
+using MonoASCII.Framework.Scenes;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 
@@ -13,7 +14,7 @@ namespace MonoASCII.Engine
         private OrthographicCamera _camera;
         private ASCIITileset _asciiTileset;
         private SpriteBatch _spriteBatch;
-        private MonoGameASCIICellRenderer _asciiCellRenderer;
+        private MonoGameRenderHandler _renderHandler;
         private GraphicsDeviceManager _graphics;
         private SceneManager _sceneManager;
         
@@ -33,8 +34,8 @@ namespace MonoASCII.Engine
             
             base.Initialize();
             
-            _asciiCellRenderer = new MonoGameASCIICellRenderer(_spriteBatch, _asciiTileset);
-            _sceneManager = new SceneManager(_asciiCellRenderer);
+            _renderHandler = new MonoGameRenderHandler(_spriteBatch, _asciiTileset);
+            _sceneManager = new SceneManager(new MainMenuScene());
         }
 
         protected override void LoadContent()
@@ -57,7 +58,7 @@ namespace MonoASCII.Engine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
-            _sceneManager.Render();
+            _sceneManager.Render(gameTime, _renderHandler);
             _spriteBatch.End();
             
             base.Draw(gameTime);

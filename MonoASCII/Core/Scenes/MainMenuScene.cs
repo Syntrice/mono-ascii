@@ -2,30 +2,24 @@ using System;
 using Microsoft.Xna.Framework;
 using MonoASCII.Framework.ASCII;
 
-namespace MonoASCII.Core.Scenes;
+namespace MonoASCII.Framework.Scenes;
 
 public class MainMenuScene : Scene
 {
-    private ASCIIGrid _grid;
-    private IASCIICellRenderer _cellRenderer;
-    
-    public MainMenuScene(IASCIICellRenderer cellRenderer, Action<Scene> changeScene) : base(cellRenderer, changeScene)
+    public MainMenuScene()
     {
-        _grid = new ASCIIGrid(16,16,1,1, Color.DarkSlateGray, Color.White);
-        _cellRenderer = cellRenderer;
-        _grid.SetCell(1,1,'H');
-        _grid.SetCell(2,1,'E');
-        _grid.SetCell(3,1,'L');
-        _grid.SetCell(4,1,'L');
-        _grid.SetCell(5,1,'O');
-    }
-
-    public override void Update(GameTime gameTime)
-    {
-    }
-
-    public override void Render()
-    {
-        _cellRenderer.RenderGrid(_grid);
+        var display = new ASCIIGrid(24, 16, 1, 1, Color.Black, Color.White);
+        display.SetCell(1,1,'H');
+        display.SetCell(2,1,'E');
+        display.SetCell(3,1,'L');
+        display.SetCell(4,1,'L');
+        display.SetCell(5,1,'O');
+        display.SetCell(6,1,' ');
+        display.SetCell(7,1,'W');
+        display.SetCell(8,1,'O');
+        display.SetCell(9,1,'R');
+        display.SetCell(10,1,'L');
+        display.SetCell(11,1,'D');
+        AddComponent("display", display);
     }
 }
