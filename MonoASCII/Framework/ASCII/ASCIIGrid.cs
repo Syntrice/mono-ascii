@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoASCII.Framework.Components;
 
 namespace MonoASCII.Framework.ASCII
 {
-    public class ASCIIGrid
+    public class ASCIIGrid : Component
     {
         /// <summary>
         /// The cell used to represent out of bounds cells.
@@ -87,6 +88,11 @@ namespace MonoASCII.Framework.ASCII
             }
 
             return _cells[x, y];
+        }
+
+        public override void Render(GameTime gameTime, IRenderHandler renderHandler)
+        {
+            renderHandler.Render(this);
         }
     }
 }
