@@ -15,7 +15,7 @@ namespace MonoASCII.Tests.Core.ASCII
         public void Constructor_WithInvalidSize_ThrowsArgumentException(int width, int height)
         {
             // Act
-            Action act = () => new ASCIIGrid(width, height, 1, 1, Color.White, Color.Black);
+            Action act = () => new ASCIIGrid(0,0,width, height, 1, 1, Color.White, Color.Black);
             // Assert
         }
 
@@ -26,7 +26,7 @@ namespace MonoASCII.Tests.Core.ASCII
         public void Constructor_WithInvalidCellSize_ThrowsArgumentException(int width, int height)
         {
             // Act
-            Action act = () => new ASCIIGrid(1, 1, width, height, Color.White, Color.Black);
+            Action act = () => new ASCIIGrid(0,0,1, 1, width, height, Color.White, Color.Black);
             // Assert
             act.ShouldThrow(typeof(ArgumentException));
         }
@@ -145,7 +145,7 @@ namespace MonoASCII.Tests.Core.ASCII
 
         private ASCIIGrid GetDefaultGrid()
         {
-            return new ASCIIGrid(3, 3, 1, 1, Color.White, Color.Black);
+            return new ASCIIGrid(0,0,3, 3, 1, 1, Color.White, Color.Black);
         }
 
     }

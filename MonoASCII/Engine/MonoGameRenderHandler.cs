@@ -28,8 +28,11 @@ public class MonoGameRenderHandler : IRenderHandler
                 for (int j = 0; j < asciiGrid.Height; j++)
                 {
                     var cell = asciiGrid.GetCell(i, j);
-                    _spriteBatch.FillRectangle(new Rectangle(i,j, asciiGrid.CellWidth, asciiGrid.CellHeight), cell.Background);
-                    _spriteBatch.Draw(_tileset.GetGlyph(cell.Glyph), new Rectangle(i,j,asciiGrid.CellWidth,asciiGrid.CellHeight), cell.Foreground);
+                    var xScreenPosition = i * asciiGrid.CellWidth + asciiGrid.X * asciiGrid.CellWidth;
+                    var yScreenPosition = j * asciiGrid.CellHeight + asciiGrid.Y * asciiGrid.CellHeight;
+                    
+                    _spriteBatch.FillRectangle(new Rectangle(xScreenPosition,yScreenPosition, asciiGrid.CellWidth, asciiGrid.CellHeight), cell.Background);
+                    _spriteBatch.Draw(_tileset.GetGlyph(cell.Glyph), new Rectangle(xScreenPosition, yScreenPosition, asciiGrid.CellWidth,asciiGrid.CellHeight), cell.Foreground);
                     
                 }
             }

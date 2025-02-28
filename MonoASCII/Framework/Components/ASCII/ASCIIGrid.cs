@@ -14,6 +14,8 @@ namespace MonoASCII.Framework.Components.ASCII
         public Color DefaultForeground { get; set; }
         public int Width { get; }
         public int Height { get; }
+        public int X { get; }
+        public int Y {get; }
 
         /// <summary>
         /// The width of each cell in world units.
@@ -25,7 +27,7 @@ namespace MonoASCII.Framework.Components.ASCII
         /// </summary>
         public int CellHeight { get; }
 
-        public ASCIIGrid(int width, int height, int tileWidth, int tileHeight, Color defaultBackground, Color defaultForeground)
+        public ASCIIGrid(int x, int y, int width, int height, int tileWidth, int tileHeight, Color defaultBackground, Color defaultForeground)
         {
             if (width <= 0 || height <= 0)
             {
@@ -37,6 +39,8 @@ namespace MonoASCII.Framework.Components.ASCII
                 throw new System.ArgumentException("Tile width and height must be greater than 0.");
             }
 
+            X = x;
+            Y = y;
             Width = width;
             Height = height;
             DefaultBackground = defaultBackground;
