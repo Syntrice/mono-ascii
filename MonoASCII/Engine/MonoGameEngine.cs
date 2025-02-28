@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoASCII.Core.Scenes;
+using MonoASCII.Engine.Renderers;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 
@@ -10,7 +10,6 @@ namespace MonoASCII.Engine
 {
     public class MonoGameEngine : Game
     {
-        private readonly ILogger<MonoGameEngine> _logger;
         private OrthographicCamera _camera;
         private ASCIITileset _asciiTileset;
         private SpriteBatch _spriteBatch;
@@ -18,9 +17,8 @@ namespace MonoASCII.Engine
         private GraphicsDeviceManager _graphics;
         private SceneManager _sceneManager;
         
-        public MonoGameEngine(ILogger<MonoGameEngine> logger)
+        public MonoGameEngine()
         {
-            _logger = logger;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -28,7 +26,6 @@ namespace MonoASCII.Engine
         
         protected override void Initialize()
         {
-            _logger.LogInformation("Initializing...");
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 24, 16);
             _camera = new OrthographicCamera(viewportAdapter);
             viewportAdapter.Reset();
@@ -42,7 +39,6 @@ namespace MonoASCII.Engine
 
         protected override void LoadContent()
         {
-            _logger.LogInformation("Loading content...");
             _asciiTileset = new ASCIITileset(Content.Load<Texture2D>("cp437_8x8"), 8, 8);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }

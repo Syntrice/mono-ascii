@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
 
-namespace MonoASCII.Engine;
+namespace MonoASCII.Engine.Renderers;
 
 /// <summary>
     /// Represents a tileset of ASCII glyphs. Internally, it uses MonoGame.Extended's Texture2DAtlas to split a texture into
