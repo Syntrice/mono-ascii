@@ -1,12 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
-using MonoASCII.Core.Interfaces;
+using MonoASCII.Framework.ASCII;
 
 namespace MonoASCII.Core.Scenes;
 
 public class WorldScene : Scene
 {
-    public WorldScene(IRenderer renderer, Action<Scene> ChangeScene) : base(renderer, ChangeScene)
+    public WorldScene(IASCIICellRenderer renderer, Action<Scene> ChangeScene) : base(renderer, ChangeScene)
     {
     }
 

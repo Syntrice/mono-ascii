@@ -1,17 +1,17 @@
 using Microsoft.Xna.Framework;
-using MonoASCII.Core.Interfaces;
+using MonoASCII.Framework.ASCII;
 
 namespace MonoASCII.Core.Scenes;
 
 public class SceneManager
 {
     private Scene _currentScene;
-    private readonly IRenderer _renderer;
+    private readonly IASCIICellRenderer _cellRenderer;
 
-    public SceneManager(IRenderer renderer)
+    public SceneManager(IASCIICellRenderer cellRenderer)
     {
-        _renderer = renderer;
-        _currentScene = new MainMenuScene(_renderer, ChangeScene);
+        _cellRenderer = cellRenderer;
+        _currentScene = new MainMenuScene(_cellRenderer, ChangeScene);
     }
 
     private void ChangeScene(Scene scene)
