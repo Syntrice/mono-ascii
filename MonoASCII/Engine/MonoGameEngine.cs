@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoASCII.Engine.Renderers;
 using MonoASCII.Framework;
 using MonoASCII.Framework.Scenes;
 using MonoGame.Extended;
@@ -15,6 +14,7 @@ namespace MonoASCII.Engine
         private ASCIITileset _asciiTileset;
         private SpriteBatch _spriteBatch;
         private MonoGameRenderHandler _renderHandler;
+        private MonoGameActionProvider _actionProvider;
         private GraphicsDeviceManager _graphics;
         private SceneManager _sceneManager;
         
@@ -35,6 +35,7 @@ namespace MonoASCII.Engine
             base.Initialize();
             
             _renderHandler = new MonoGameRenderHandler(_spriteBatch, _asciiTileset);
+            _actionProvider = new MonoGameActionProvider();
             _sceneManager = new SceneManager(new MainMenuScene());
         }
 
@@ -49,7 +50,8 @@ namespace MonoASCII.Engine
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _sceneManager.Update(gameTime);
+            _actionProvider.GetKeyboardState();
+            _sceneManager.Update(gameTime, _actionProvider);
             
             base.Update(gameTime);
         }

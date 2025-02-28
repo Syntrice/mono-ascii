@@ -12,9 +12,9 @@ public class SceneManager
         _currentScene = startingScene;
     }
     
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime, IActionProvider actionProvider)
     {
-        _currentScene.Update(gameTime);
+        _currentScene.Update(gameTime, actionProvider);
     }
 
     public void Render(GameTime gameTime, IRenderHandler renderHandler)

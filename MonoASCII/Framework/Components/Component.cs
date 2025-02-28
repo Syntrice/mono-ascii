@@ -27,11 +27,11 @@ public abstract class Component
         }
     }
 
-    public virtual void Update(GameTime gameTime)
+    public virtual void Update(GameTime gameTime, IActionProvider actionProvider)
     {
         foreach (var component in _components.Values)
         {
-            component.Update(gameTime);
+            component.Update(gameTime, actionProvider);
         }
     }
 

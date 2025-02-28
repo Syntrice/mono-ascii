@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoASCII.Engine.Renderers;
 using MonoASCII.Framework;
 using MonoASCII.Framework.ASCII;
 using MonoASCII.Framework.Components;
