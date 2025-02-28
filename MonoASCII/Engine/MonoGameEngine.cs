@@ -27,7 +27,7 @@ namespace MonoASCII.Engine
         
         protected override void Initialize()
         {
-            var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 24, 16);
+            var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 48, 24);
             _camera = new OrthographicCamera(viewportAdapter);
             viewportAdapter.Reset();
             Window.AllowUserResizing = true;

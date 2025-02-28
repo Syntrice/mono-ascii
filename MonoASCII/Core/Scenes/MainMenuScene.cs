@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using MonoASCII.Framework.ASCII;
+using MonoASCII.Framework.Components.ASCII;
 
 namespace MonoASCII.Framework.Scenes;
 
@@ -11,7 +11,7 @@ public class MainMenuScene : Scene
     private ASCIIGrid _display;
     public MainMenuScene()
     {
-        _display = new ASCIIGrid(24, 16, 1, 1, Color.Black, Color.White);
+        _display = new ASCIIGrid(48, 24, 1, 1, Color.Black, Color.White);
         _display.SetCell(1,1,'H');
         _display.SetCell(2,1,'E');
         _display.SetCell(3,1,'L');

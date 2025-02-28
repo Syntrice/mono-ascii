@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoASCII.Framework.Components;
 
-namespace MonoASCII.Framework.ASCII
+namespace MonoASCII.Framework.Components.ASCII
 {
     public class ASCIIGrid : Component
     {

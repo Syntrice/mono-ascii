@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoASCII.Framework.ASCII
+namespace MonoASCII.Framework.Components.ASCII
 {
     public struct ASCIICell
     {

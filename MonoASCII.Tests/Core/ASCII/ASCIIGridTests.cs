@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoASCII.Framework.ASCII;
+using MonoASCII.Framework.Components.ASCII;
 using Shouldly;
 
 namespace MonoASCII.Tests.Core.ASCII
